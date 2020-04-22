@@ -40,7 +40,8 @@ case "$1" in
 esac
 
 if [[ $i -eq 1 ]]; then
-  echo install
+  mkdir -p build
+  cp -r src/* build/
 fi
 
 if [[ $b -eq 1 ]]; then
