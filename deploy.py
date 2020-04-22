@@ -16,7 +16,8 @@ except getopt.error as err:
 
 import boto3
 
-PROJECT = "upb-cloudformation"
+PROJECT = "upb-cloudformation2"
+BUCKET_NAME = f"{PROJECT}-bucket-123"
 
 cf = boto3.client('cloudformation')
 
@@ -27,7 +28,13 @@ with open('template.yaml', 'r') as file:
 if command in ("--create", "-c"):
     response = cf.create_stack(
         StackName=PROJECT,
-        TemplateBody= template
+        TemplateBody= template,
+        Parameters=[
+            {
+                'ParameterKey': 'BuketName',
+                'ParameterValue': BUCKET_NAME
+            },
+        ]
     )
     print(response)
     

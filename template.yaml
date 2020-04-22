@@ -1,9 +1,16 @@
 AWSTemplateFormatVersion : '2010-09-09'
 
+Parameters:
+  BuketName: 
+    Type: String
+
 Description: my template
 Resources:
     MyBucket:
         Type: AWS::S3::Bucket
-        DeletionPolicy: Retain
         Properties:
-            BucketName: my-unique-s3-bucket-name-9999
+            BucketName: !Ref BuketName
+
+Outputs:
+  OuputValue1:
+    Value: !Ref MyBucket
