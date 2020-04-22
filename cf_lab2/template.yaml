@@ -16,9 +16,6 @@ Resources:
       CodeUri: ./build
       Handler: my_lambda.handler
       Role: !GetAtt MyLambdaRole.Arn
-      Environment:
-        Variables:
-          MY_VAR: "HI WOR!!"
 
 Outputs:
   OuputValue1:
