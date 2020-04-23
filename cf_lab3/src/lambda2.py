@@ -1,3 +1,3 @@
 
 def handler(event, context):
-    return "lambda1"
+    return "lambda2"
