@@ -11,7 +11,7 @@ Resources:
   MyLambdaRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: rpp-ip-cluster-lambda-role
+      RoleName: my-lambda-role3
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -34,6 +34,17 @@ Resources:
             - logs:PutLogEvents
             Resource: arn:aws:logs:*:*:*
 
+  MyAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: my-api-gateway
+      StageName: prod
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: swagger.yaml
+
   MyLambda1:
     Type: AWS::Serverless::Function
     Properties:
@@ -47,6 +58,13 @@ Resources:
       Environment:
          Variables:
           MY_NAME : mauri
+      Events:
+        GetUsers:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyAPI
+            Path: /users
+            Method: GET
   
   MyLambda2:
     Type: AWS::Serverless::Function
