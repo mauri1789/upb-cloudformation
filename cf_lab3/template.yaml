@@ -75,12 +75,28 @@ Resources:
       Handler: lambda2.handler
       Role: !GetAtt MyLambdaRole.Arn
       Events:
-        GetUsers:
+        GetUsers2:
           Type: Api
           Properties:
             RestApiId: !Ref MyAPI
             Path: /users/{user_name}
             Method: GET
+  
+  PostLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: post-lambda
+      Runtime: python3.6
+      CodeUri: ./build
+      Handler: lambda3.handler
+      Role: !GetAtt MyLambdaRole.Arn
+      Events:
+        PostUsers:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyAPI
+            Path: /users/{user_name}
+            Method: POST
 
 Outputs:
   RoleARN:
