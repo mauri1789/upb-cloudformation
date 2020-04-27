@@ -66,14 +66,21 @@ Resources:
             Path: /users
             Method: GET
   
-  MyLambda2:
+  GetUserLambda2:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Join [ "-", [!Ref Project, "lambda-1" ] ]  
+      FunctionName: get-user-lambda2
       Runtime: python3.6
       CodeUri: ./build
       Handler: lambda2.handler
       Role: !GetAtt MyLambdaRole.Arn
+      Events:
+        GetUsers:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyAPI
+            Path: /users/{user_name}
+            Method: GET
 
 Outputs:
   RoleARN:
